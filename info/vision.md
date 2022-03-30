@@ -60,6 +60,9 @@ Ledger_Node->>Publisher: Here are the storage and ledger receipts
 Publisher->>Consumers: Here's the SBOM
 ```
 
+All of the above can be accessed via HTTPS requests and REST services. There would be no need for
+consumers of the store or the ledger to interact directly with IPFS or a distributed ledger.
+
 ## Complex SBOMs
 
 The way GitBOM descibes an [artifact tree](https://gitbom.dev/glossary/artifact_tree/#running-c-executable-with-shared-object).
@@ -76,5 +79,64 @@ B --> bar.h
 In this case, two different Ledger Nodes could publish service A and service B at different times, but because `bar.h` is shared (or perhaps
 its a library or a module or another artifact that's shared), there becomes a graph of dependencies.
 
-If the shared thing was Log4J versions 2.0-beta9 to 2.14.1
+If the shared thing was Log4J versions 2.0-beta9 to 2.14.1, it would be possible to see what depended on Log4J.
+
+### Isn't this a security hole? I mean, you're telling hackers what to attack!
+
+Sunlight is the best disinfectant.
+
+Security by obscurity [has been rejected since 1851](https://en.wikipedia.org/wiki/Security_through_obscurity).
+
+There will be a period where a global description of which systems have vulnerable components that will
+increase attacks on those systems.
+
+However, visibility will drive faster patching, faster responses to zero days, and generally better
+hygene.
+
+## Commercial opportunities
+
+The above is open and not-for-cost. However, there must also be commercial opportunities
+around BOM Sage.
+
+Like [The Weather Channel](https://weather.com/) is a commercial user interface on top
+of [NOAA](https://www.noaa.gov/) data, there are many commercial opportunities on top
+of BOM Sage.
+
+Specifically:
+
+* Patch management prioritization systems and augmentations to existing vulnerability scoring/patch priority systems
+* Reputation scoring by product and by vendor... and with reputation scoring comes improved vendor management
+* Prioritized ledger submission... given that provenance validation may be computationally expensive, doing it faster
+  could be a commercial offering much like GitHub and GitLab are commercial offering on top of git.
+* Vulnerability prediction weather reports... as classes and clusters of vulnerabilities are discovered, predictive models
+  can be built based on the global view.
+
+There are likely additional commercial offerings.
+
+## Futures
+
+In addition to the above, there are many possibilities for the future enabled
+by a source of software truth.
+
+[Remote Attestation (rats)](https://www.ietf.org/archive/id/draft-ietf-rats-architecture-12.html)
+may simply become a part of the DAG of a system.
+
+For example, a Merkle tree could be composed of application, container, operating system, hypervisor,
+host operating system, and hardware. The identifier (hash of the root) could be returned as part of
+every HTTP response.
+
+```mermaid
+graph LR
+DC[Data Center]-->R[Rack]
+R-->H
+H[Hardware]-->HOS[Host OS]
+HOS-->HY[Hypervisor]
+HY-->G[Guest OS]
+G-->C[Container]
+C-->App
+```
+And with this could be a sub-graph of services that were used to deal with a particular
+request. With a the root of a Merkle tree/graph of services that touched the data, there
+are a lot of interesting PCI and FedRAMP compliance tests as well as demonstrations around
+data sovereignty (e.g., data from this request was only serviced within a particular geography).
 
