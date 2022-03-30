@@ -93,6 +93,22 @@ increase attacks on those systems.
 However, visibility will drive faster patching, faster responses to zero days, and generally better
 hygene.
 
+## Claims about proprietary software
+
+The above examples are focused on open source software where the source code and perhaps the
+git hash of the release and other things are part of the claim. However, there exists a class
+of software for which revealing source code or distributing object code may negatively impact
+a business. BOM Sage must deal with this case as well.
+
+In order to make a claim about a system that the public cannot view, but the public must
+be able to verify, the use of [Zero Knowledge proofs](https://en.wikipedia.org/wiki/Zero-knowledge_proof)
+provide a solution.
+
+Specifically, there are classes of Zero Knowledge proofs that allow verification that the
+prover witnessed a document and made a hash of the document. This would allow the tracking
+of a particular proprietary source file across many systems without revealing the contents of
+the source file.
+
 ## Commercial opportunities
 
 The above is open and not-for-cost. However, there must also be commercial opportunities
@@ -110,6 +126,8 @@ Specifically:
   could be a commercial offering much like GitHub and GitLab are commercial offering on top of git.
 * Vulnerability prediction weather reports... as classes and clusters of vulnerabilities are discovered, predictive models
   can be built based on the global view.
+* A "search engine" that will answer questions including "what nodes reference a given node" which will help with "what packages
+  rely on Log4J 2.1?"
 
 There are likely additional commercial offerings.
 
@@ -133,7 +151,8 @@ H[Hardware]-->HOS[Host OS]
 HOS-->HY[Hypervisor]
 HY-->G[Guest OS]
 G-->C[Container]
-C-->App
+C-->N[NodeJS]
+N-->App
 ```
 And with this could be a sub-graph of services that were used to deal with a particular
 request. With a the root of a Merkle tree/graph of services that touched the data, there
