@@ -47,7 +47,7 @@ For more, please read the [vision](info/vision.md)
 
 ## Pariticipating
 
-This is an open source project and participation is encouraged and governed by the [code_of_conduct.md].
+This is an open source project and participation is encouraged and governed by the (Code of Conduct)[code_of_conduct.md].
 
 ## License
 
