@@ -1,0 +1,13 @@
+volumes:
+  doltdata:
+    name: data_for_dolt_bomsage
+
+services:
+  db:
+    image: dolthub/dolt-sql-server:0.75.10
+    volumes:
+      - doltdata:/var/lib/dolt/
+      - ./dolt_init:/docker-entrypoint-initdb.d/
+      # - ./dolt_config:/etc/dolt/doltcfg.d/:ro
+    ports:
+      - 3307:3306 

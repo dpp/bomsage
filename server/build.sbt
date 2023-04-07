@@ -25,6 +25,9 @@ libraryDependencies += "org.scalameta" %% "munit" % "0.7.29"
 libraryDependencies += "com.augustcellars.cose" % "cose-java" % "1.1.0"
 
 libraryDependencies += "com.github.ipld" % "java-cid" % "1.3.7"
+
+libraryDependencies +=     "mysql" % "mysql-connector-java" % "8.0.32"
+
 enablePlugins(JettyPlugin)
 
 // See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for instructions on how to publish to Sonatype.

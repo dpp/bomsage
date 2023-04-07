@@ -6,6 +6,9 @@ import net.liftweb.common.{Box, Full, Empty, Failure}
 
 class FileStorageSpec extends munit.FunSuite {
   val store = new FilesystemStore(Empty)
+
+  DoltState.setupDB()
+  
   test("Read and write a file") {
     val im = new ByteArrayOutputStream()
     for {

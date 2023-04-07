@@ -1,1 +1,6 @@
 storage.root=/tmp/sage_test_store
+
+db.user=root
+db.password=
+db.url=jdbc:mysql://localhost:3307/bomsage
+db.driver=com.mysql.cj.jdbc.Driver
