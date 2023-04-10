@@ -1,4 +1,4 @@
-package bomsage.cose
+package bomsage.scitt
 
 import java.io.File
 import net.liftweb.common.Box
@@ -17,32 +17,28 @@ import bomsage.abstractions.{State, Operation}
 import bomsage.abstractions.Validation
 import bomsage.abstractions.Ledger
 
-object SCITTServiceEmulator {
-  // temporary claim header labels, see draft-birkholz-scitt-architecture
-  val COSE_Headers_Issuer = 391
-}
 
-/** The SCITT Service emulator abstract class. Derived from
+/** The SCITT Service class. Derived from
   * https://github.com/scitt-community/scitt-api-emulator/blob/main/scitt_emulator/scitt.py
   *
   * @param serviceParameterPath
   * @param storagePath
   */
-abstract class SCITTServiceEmulator(
+class SCITTService[PrimaryKeyType](
     val storage: Storage,
-    val state: State,
+    val state: State[PrimaryKeyType],
     val validation: Validation,
     val ledger: Ledger
 ) {
  
-  def initializeService(): Unit
+  def initializeService(): Unit = ??? // FIXME
 
-  def createReceiptContents(countersignTbi: Array[Byte], entryId: String): Unit
+  def createReceiptContents(countersignTbi: Array[Byte], entryId: String): Unit = ??? // FIXME
 
   def verifyReceiptContents(
       receiptLontents: List[String],
       countersign_tbi: Array[Byte]
-  ): Unit
+  ): Unit = ??? // FIXME
 
   def getOperation(operationId: String): Box[Operation] = {
     for {
@@ -52,8 +48,16 @@ abstract class SCITTServiceEmulator(
 
   }
 
-  protected def createEntry(claim: Array[Byte]): Box[JValue] = synchronized {
-    Empty // FIXME
+  protected def createEntry(claim: Array[Byte]): Box[JValue] = {
+    for {
+       entryInfo <- storage.store(claim)
+       msg <- validation.unpackMessage(claim)
+       _ <- validation.basicValidation(msg)
+    } yield {
+      
+      ("entryId" -> entryInfo.hash)
+    }
+     // FIXME
     // for {
     //   theStoragePath <- storagePath
     //   lastEntryPath = new File(theStoragePath, "last_entry_id.txt")
@@ -75,34 +79,11 @@ abstract class SCITTServiceEmulator(
   }
 
   protected def createReceipt(claim: Array[Byte], entryId: String): Box[Unit] = {
-    def validateMessage(in: Message): Box[Message] = {
-      if (!in.isInstanceOf[Sign1Message])
-        Failure("Claim is not a COSE_Sign1 message")
-      else if (!in.getProtectedAttributes().ContainsKey(HeaderKeys.Algorithm))
-        Failure("Claim does not have an algorithm header parameter")
-      else if (
-        !in.getProtectedAttributes().ContainsKey(HeaderKeys.CONTENT_TYPE)
-      ) Failure("Claim does not have a content type header parameter")
-      else if (
-        !in
-          .getProtectedAttributes()
-          .ContainsKey(SCITTServiceEmulator.COSE_Headers_Issuer)
-      ) Failure("Claim does not have an issuer header parameter")
-      else if (
-        ! {
-          val theType = in
-            .getProtectedAttributes()
-            .get(SCITTServiceEmulator.COSE_Headers_Issuer)
-            .getType()
-          theType == CBORType.TextString || theType == CBORType.ByteString
-        }
-      ) Failure("Claim issuer is not a string")
-      else Full(in)
-    }
+
 
     for {
       message <- Helpers.tryo { Message.DecodeFromBytes(claim) }
-      message <- validateMessage(message)
+      message <- validation.basicValidation(message)
     } yield ()
   }
 

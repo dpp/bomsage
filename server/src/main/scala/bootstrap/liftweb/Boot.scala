@@ -13,6 +13,7 @@ import ch.qos.logback.classic.{Level, LoggerContext}
 import ch.qos.logback.classic.joran.JoranConfigurator
 import java.io.{ByteArrayInputStream, InputStream}
 import bomsage.impls.DoltState
+import bomsage.rest.SCITTRoutes
 
 /** A class that's instantiated early and run. It allows the application to
   * modify lift's environment
@@ -64,7 +65,7 @@ class Boot {
     // Make a transaction span the whole HTTP request
     S.addAround(DB.buildLoanWrapper())
 
-    // FIXME LiftRules.statelessDispatch.append(Site)
+    // FIXME LiftRules.statelessDispatch.append(SCITTRoutes)
 
   }
 }

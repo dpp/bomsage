@@ -4,6 +4,11 @@ import java.io.File
 import net.liftweb.util.Helpers
 import java.io.FileOutputStream
 import net.liftweb.common.Box
+import java.security.KeyPairGenerator
+import java.security.spec.ECGenParameterSpec
+import java.security.SecureRandom
+import java.security.KeyPair
+import java.util.concurrent.atomic.AtomicReference
 
 /**
   * A bunch of helper methods
@@ -45,4 +50,15 @@ object SageUtil {
       val rawHash = Helpers.hash256(bytes)
       "FIXME"
     }
+
+    def updateAtomicReference[T](ref: AtomicReference[T], f: T => T): T = {
+      
+        val old = ref.get()
+        val newVal = f(old)
+        
+        return old
+      
+    }
+
+
 }
