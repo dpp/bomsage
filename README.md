@@ -1,5 +1,43 @@
 # BOM Sage
 
+Originally, BOM Sage was envisioned as a federated repository for Software Bill of Materials (SBOMs).
+
+In the year+ since BOM Sage was envisioned, there have been advances in publication of SBOMs.
+
+Specifically, IPFS is a good repository for SBOMs. Rather than federation, [cosign](https://docs.sigstore.dev/cosign/overview/)
+and [SigStore](https://www.sigstore.dev/) provide a mechanism for signing and validating the signature
+of an item, for example an SBOM.
+
+Further, [Deps Dev](https://deps.dev/) provides a mechanism for analyzing transitive dependency graphs and
+CVEs, etc. for any package or collection of packages.
+
+The tactical mechanism for collecting/aggregating SBOMs and other package information is less valuable.
+
+But analyzing this information is still a valuable pursuit.
+
+## Risky Analytics
+
+The open source world has [moles](https://en.wikipedia.org/wiki/Mole_%28unit%29) of [risk](https://tech.lgbt/@aeva/110226619949691195).
+
+Analyzing that risk and allowing executives to set priorities and
+incentives for taking appropriate sets to reduce risk.
+
+Much of today's approach is granular patch management. But,
+there are thousands to millions of choices and priorities
+for what to patch.
+
+BOM Sage is evolving to quantitative risk management.
+
+Based on _[How to Measure Anything in Cybersecurity Risk](https://www.wiley.com/en-us/How+to+Measure+Anything+in+Cybersecurity+Risk%2C+2nd+Edition-p-9781119892311)_, BOM Sage will offer tools for approximating
+risk and allow executives to play "what if" in terms of different
+programs and risk mitigation.
+
+The [beginnings](risky_business/README.md) are some basic
+Monte Carlo simulations based on the scenarios in _How to Measure_.
+
+
+## History and original vision
+
 The Open, Federated Source of Software Truth
 
 Knowing what makes up the software that controls your business, your house, your
