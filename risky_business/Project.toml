@@ -1,0 +1,11 @@
+name = "RiskyBusiness"
+uuid = "632bb902-801d-4fb1-a721-d229fda0aa78"
+authors = ["David Pollak <feeder.of.the.bears@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+Folds = "41a02a25-b8f0-4f67-bc48-60067656b558"
+Formatting = "59287772-0a20-5a39-b81b-1366585eb4c0"
+Memoize = "c03570c3-d221-55d1-a50c-7939bbd78826"
+Transducers = "28d57a85-8fef-5791-bfe6-a80928e7c999"
+YAML = "ddb6d928-2868-570f-bddf-ab3f9cf99eb6"
